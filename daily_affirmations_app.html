@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene Affirmations - Daily Mood & Quote Guide</title>
+    <!-- Google Fonts for Calming Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           STYLE SECTION (style.css)
+           Calming, soft pastel palette, gentle transitions, full mobile response.
+           ========================================================================== */
+        :root {
+            --bg-overlay: rgba(253, 251, 247, 0.72);
+            --card-bg: rgba(255, 255, 255, 0.82);
+            --card-border: rgba(255, 255, 255, 0.95);
+            --text-main: #2d3748;
+            --text-muted: #64748b;
+            --accent-sage: #84a98c;
+            --accent-sage-dark: #52796f;
+            --accent-lavender: #b8c0e0;
+            --accent-rose: #f4acb7;
+            --accent-gold: #e0a96d;
+            --shadow-soft: 0 10px 30px -5px rgba(50, 50, 93, 0.08), 0 5px 15px -5px rgba(0, 0, 0, 0.05);
+            --shadow-glow: 0 0 25px rgba(132, 169, 140, 0.25);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            background-color: #f7f9f7;
+            overflow-x: hidden;
+        }
+
+        /* Dynamic Background Imagery Layer */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.2s ease-in-out;
+            z-index: -2;
+            opacity: 0.9;
+            filter: brightness(0.95) saturate(0.9);
+        }
+
+        .bg-overlay-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(253, 251, 247, 0.65) 0%, rgba(245, 242, 235, 0.88) 100%);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: -1;
+        }
+
+        /* Container Layout */
+        .app-container {
+            width: 100%;
+            max-width: 760px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            z-index: 1;
+            margin: 0 auto;
+        }
+
+        /* Header & Time-of-Day Check-in */
+        header {
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--accent-sage-dark);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            margin-bottom: 12px;
+        }
+
+        .greeting-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: #2b3a30;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Top Action Nav Bar */
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-sage-dark);
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .icon-btn:hover, .icon-btn:active {
+            transform: translateY(-2px);
+            background: #ffffff;
+            color: #2b3a30;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .badge-count {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--accent-rose);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+        }
+
+        /* Mood Selector Buttons */
+        .mood-section {
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .mood-buttons-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .mood-btn {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid var(--card-border);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .mood-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+        }
+
+        .mood-btn.active {
+            background: var(--accent-sage);
+            color: white;
+            border-color: var(--accent-sage);
+            box-shadow: 0 4px 15px rgba(132, 169, 140, 0.4);
+        }
+
+        /* Quote Display Card */
+        .quote-card {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            transition: var(--transition-smooth);
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quote-card.fade-out {
+            opacity: 0;
+            transform: translateY(8px) scale(0.98);
+        }
+
+        .quote-card.fade-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .quote-icon {
+            font-size: 1.8rem;
+            color: var(--accent-sage);
+            opacity: 0.5;
+            margin-bottom: 16px;
+        }
+
+        .quote-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.45rem;
+            line-height: 1.6;
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            color: var(--accent-sage-dark);
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .cycle-indicator {
+            margin-top: 18px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.03);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        /* Card Controls / Actions */
+        .card-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--card-border);
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .action-btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+
+        .action-btn.fav-btn.favorited {
+            color: #e63946;
+            background: #fff5f5;
+            border-color: #fca5a5;
+        }
+
+        .action-btn.primary {
+            background: var(--accent-sage);
+            color: white;
+            border-color: var(--accent-sage);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-sage-dark);
+        }
+
+        /* Footer */
+        footer {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+
+        /* Modals & Slide-over Drawers */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 520px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .close-btn:hover {
+            color: var(--text-main);
+        }
+
+        /* Favorites List Styling */
+        .favorites-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .favorite-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .fav-content p {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .fav-content span {
+            font-size: 0.75rem;
+            color: var(--accent-sage-dark);
+            text-transform: capitalize;
+        }
+
+        .remove-fav-btn {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .remove-fav-btn:hover {
+            color: #ef4444;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 10px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        /* Custom Quote Creator Form */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius-sm);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-sage);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-sage);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-sage-dark);
+        }
+
+        /* Share Canvas Modal Preview */
+        .canvas-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        #shareCanvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Toast / Notification Box (Replacing alerts) */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2b3a30;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 200;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .app-container {
+                padding: 16px;
+                gap: 18px;
+            }
+
+            .top-nav {
+                top: 14px;
+                right: 14px;
+            }
+
+            .greeting-title {
+                font-size: 1.45rem;
+            }
+
+            .quote-card {
+                padding: 28px 20px;
+                min-height: 220px;
+            }
+
+            .quote-text {
+                font-size: 1.18rem;
+            }
+
+            .mood-btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .action-btn {
+                padding: 10px 14px;
+                font-size: 0.82rem;
+            }
+
+            .modal-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Background Layer -->
+    <div id="bgLayer" class="bg-layer"></div>
+    <div class="bg-overlay-mask"></div>
+
+    <!-- Top Action Navigation Buttons -->
+    <div class="top-nav">
+        <button id="customQuoteNavBtn" class="icon-btn" title="Create Custom Affirmation">
+            <i class="fa-solid fa-pen-sparkles"></i>
+        </button>
+        <button id="favoritesNavBtn" class="icon-btn" title="View Saved Affirmations">
+            <i class="fa-solid fa-heart"></i>
+            <span id="favBadge" class="badge-count" style="display:none;">0</span>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <main class="app-container">
+        
+        <!-- Time-of-Day Check-in Header -->
+        <header>
+            <div class="time-badge">
+                <i id="timeIcon" class="fa-solid fa-sun"></i>
+                <span id="timeGreeting">Good Morning</span>
+            </div>
+            <h1 class="greeting-title">How is your heart feeling right now?</h1>
+            <p class="subtitle">Select your mood to receive a tailored daily affirmation.</p>
+        </header>
+
+        <!-- Mood Selector Buttons -->
+        <section class="mood-section">
+            <div class="mood-buttons-grid" id="moodGrid">
+                <button class="mood-btn active" data-mood="anxious">
+                    <i class="fa-solid fa-wind"></i> Anxious
+                </button>
+                <button class="mood-btn" data-mood="confident">
+                    <i class="fa-solid fa-crown"></i> Confident
+                </button>
+                <button class="mood-btn" data-mood="sad">
+                    <i class="fa-solid fa-cloud-rain"></i> Sad
+                </button>
+                <button class="mood-btn" data-mood="happy">
+                    <i class="fa-solid fa-sun"></i> Happy
+                </button>
+                <button class="mood-btn" data-mood="self-love">
+                    <i class="fa-solid fa-spa"></i> Self-Love
+                </button>
+            </div>
+        </section>
+
+        <!-- Quote Display Card -->
+        <section class="quote-card" id="quoteCard">
+            <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="quote-text" id="quoteText">Loading your affirmation...</p>
+            <p class="quote-author" id="quoteAuthor">— Gentle Reminder</p>
+            <div class="cycle-indicator" id="cycleTracker">Cycle progress: 1 / 5</div>
+        </section>
+
+        <!-- Card Actions / Controls -->
+        <div class="card-actions">
+            <button id="nextQuoteBtn" class="action-btn primary">
+                <i class="fa-solid fa-arrows-rotate"></i> Another Affirmation
+            </button>
+            <button id="favToggleBtn" class="action-btn fav-btn">
+                <i class="fa-regular fa-heart" id="favHeartIcon"></i> Favorite
+            </button>
+            <button id="shareBtn" class="action-btn">
+                <i class="fa-solid fa-share-nodes"></i> Share Image
+            </button>
+        </div>
+
+        <footer>
+            <p>Peace & Mindfulness • Crafted with intention</p>
+        </footer>
+    </main>
+
+    <!-- Modal 1: Favorites Drawer -->
+    <div id="favoritesModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-heart" style="color: var(--accent-rose);"></i> Favorited Affirmations</h2>
+                <button class="close-btn" class="closeModalBtn" data-modal="favoritesModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="favoritesList" class="favorites-list">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Custom Quote Creator -->
+    <div id="customModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-pen-line" style="color: var(--accent-sage);"></i> Write Your Affirmation</h2>
+                <button class="close-btn" class="closeModalBtn" data-modal="customModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="customQuoteForm">
+                <div class="form-group">
+                    <label for="customText">Affirmation Quote</label>
+                    <textarea id="customText" class="form-control" placeholder="I am worthy of peace and inner calm..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="customMood">Assign to Mood</label>
+                    <select id="customMood" class="form-control" required>
+                        <option value="anxious">Anxious</option>
+                        <option value="confident">Confident</option>
+                        <option value="sad">Sad</option>
+                        <option value="happy">Happy</option>
+                        <option value="self-love">Self-Love</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="customAuthor">Author (Optional)</label>
+                    <input type="text" id="customAuthor" class="form-control" placeholder="Self-Affirmation">
+                </div>
+                <button type="submit" class="submit-btn"><i class="fa-solid fa-plus"></i> Save & Affirm Yourself</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: Shareable Image Generator Preview -->
+    <div id="shareModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-image" style="color: var(--accent-sage-dark);"></i> Shareable Image Card</h2>
+                <button class="close-btn" class="closeModalBtn" data-modal="shareModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="canvas-container">
+                <canvas id="shareCanvas" width="600" height="600"></canvas>
+                <button id="downloadCanvasBtn" class="action-btn primary" style="width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-download"></i> Download Image Card
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Non-intrusive Toast Notification -->
+    <div id="toast" class="toast-notification">
+        <i class="fa-solid fa-circle-check" style="color: var(--accent-sage);"></i>
+        <span id="toastMessage">Action completed</span>
+    </div>
+
+    <!-- Hidden Audio Synthesizer for Gentle Visual/Sound Feedback -->
+    <script>
+        /* ==========================================================================
+           JAVASCRIPT SECTION (script.js)
+           Strictly divided into DATA, RULES/STATE MANAGEMENT, and DISPLAY/UI CONTROLLERS.
+           ========================================================================== */
+
+        /* ==========================================================================
+           1. DATA SECTION
+           ========================================================================== */
+        const AFFIRMATIONS_DATA = {
+            anxious: [
+                { id: "anx_1", text: "Breathe softly. You do not have to figure out your entire life in this single moment.", author: "Mindful Reflection" },
+                { id: "anx_2", text: "This feeling is temporary. It is just a wave passing through, and you are the anchor.", author: "Inner Calm" },
+                { id: "anx_3", text: "You are safe in this present moment. Give yourself permission to slow down.", author: "Serenity Guide" },
+                { id: "anx_4", text: "You have survived every hard day so far. Trust your quiet resilience.", author: "Peaceful Mind" },
+                { id: "anx_5", text: "Inhale peace, exhale tension. You are doing much better than you realize.", author: "Gentle Reminder" }
+            ],
+            confident: [
+                { id: "cnf_1", text: "You hold the wisdom, strength, and capability to embrace whatever comes your way.", author: "Self-Belief" },
+                { id: "cnf_2", text: "Your potential is limitless. Step boldly into the space you deserve.", author: "Inner Power" },
+                { id: "cnf_3", text: "You do not need permission to shine warmly and authentically.", author: "Confidence Daily" },
+                { id: "cnf_4", text: "Trust in your unique gifts. You are fully equipped to build a radiant life.", author: "Courageous Soul" },
+                { id: "cnf_5", text: "Your presence is meaningful, and your voice carries value.", author: "Empowerment" }
+            ],
+            sad: [
+                { id: "sad_1", text: "It is completely okay to feel sad. Be gentle with yourself while you heal.", author: "Soft Space" },
+                { id: "sad_2", text: "Tears are the heart's way of washing away heavy sorrow. Rest comfortably.", author: "Compassion" },
+                { id: "sad_3", text: "Even on the darkest days, clouds always make room for the sun once again.", author: "Hope Restored" },
+                { id: "sad_4", text: "Your value does not diminish because you are going through a difficult season.", author: "Gentle Care" },
+                { id: "sad_5", text: "Give yourself time. Healing is not a race, it is a quiet unfolding.", author: "Healing Journey" }
+            ],
+            happy: [
+                { id: "hap_1", text: "Savor this joy. Let it soak into your body and illuminate your spirit.", author: "Joyful Living" },
+                { id: "hap_2", text: "Your happiness is contagious; radiate your lightness into the world today.", author: "Warm Light" },
+                { id: "hap_3", text: "Celebrate the small and beautiful moments that fill your cup.", author: "Gratitude" },
+                { id: "hap_4", text: "You deserve to experience warmth, laughter, and abundance without hesitation.", author: "Pure Joy" },
+                { id: "hap_5", text: "Hold onto this lightness. It is a true reflection of your vibrant heart.", author: "Radiant Life" }
+            ],
+            "self-love": [
+                { id: "slv_1", text: "You are worthy of the exact same kindness and patience you give to others.", author: "Self-Compassion" },
+                { id: "slv_2", text: "Embrace your flaws with grace; they make your story wonderfully human.", author: "Unconditional Love" },
+                { id: "slv_3", text: "You are enough just as you are right now—no extra accomplishments required.", author: "Wholeness" },
+                { id: "slv_4", text: "Nurturing yourself is not selfish; it is essential for your well-being.", author: "Soul Care" },
+                { id: "slv_5", text: "Honoring your needs is a supreme act of self-respect and love.", author: "Inner Honor" }
+            ]
+        };
+
+        // Curated peaceful landscape image backgrounds (Unsplash High-Res URLs)
+        const MOOD_BACKGROUNDS = {
+            anxious: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80", // Soft tranquil ocean waves
+            confident: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80", // Majestic serene mountains
+            sad: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1200&q=80", // Gentle misty forest leaves
+            happy: "https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=1200&q=80", // Warm lavender field sunset
+            "self-love": "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80" // Warm calm golden sunlight foliage
+        };
+
+
+        /* ==========================================================================
+           2. RULES / STATE MANAGEMENT SECTION
+           ========================================================================== */
+        const AppState = {
+            currentMood: "anxious",
+            currentQuote: null,
+            favorites: [],
+            // Cycle tracker keeps track of shown quote IDs per mood to prevent repetitions
+            cycleTracker: {
+                anxious: [],
+                confident: [],
+                sad: [],
+                happy: [],
+                "self-love": []
+            },
+            
+            init() {
+                // Load Favorites from LocalStorage safely
+                try {
+                    const storedFavs = localStorage.getItem("serene_favorites");
+                    if (storedFavs) this.favorites = JSON.parse(storedFavs);
+                    
+                    const storedCycles = localStorage.getItem("serene_cycles");
+                    if (storedCycles) this.cycleTracker = JSON.parse(storedCycles);
+                } catch (e) {
+                    console.error("LocalStorage load error:", e);
+                }
+            },
+
+            saveFavorites() {
+                try {
+                    localStorage.setItem("serene_favorites", JSON.stringify(this.favorites));
+                } catch (e) {
+                    console.error("LocalStorage save error:", e);
+                }
+            },
+
+            saveCycles() {
+                try {
+                    localStorage.setItem("serene_cycles", JSON.stringify(this.cycleTracker));
+                } catch (e) {
+                    console.error("LocalStorage save error:", e);
+                }
+            },
+
+            /* Rule Engine: Guarantees full quote cycle before repeating any quote */
+            getNextQuoteForMood(mood) {
+                const pool = AFFIRMATIONS_DATA[mood] || [];
+                if (pool.length === 0) return null;
+
+                let shownIds = this.cycleTracker[mood] || [];
+
+                // Check if full cycle has completed
+                if (shownIds.length >= pool.length) {
+                    shownIds = []; // Reset cycle for this mood
+                }
+
+                // Filter available quotes not yet shown in this cycle
+                const availableQuotes = pool.filter(q => !shownIds.includes(q.id));
+
+                // Random selection from remaining non-shown pool
+                const selectedQuote = availableQuotes[Math.floor(Math.random() * availableQuotes.length)];
+
+                // Update tracked shown IDs
+                shownIds.push(selectedQuote.id);
+                this.cycleTracker[mood] = shownIds;
+                this.saveCycles();
+
+                this.currentQuote = selectedQuote;
+                return {
+                    quote: selectedQuote,
+                    currentIndex: shownIds.length,
+                    totalCount: pool.length
+                };
+            },
+
+            toggleFavorite(quote) {
+                if (!quote) return false;
+                const index = this.favorites.findIndex(item => item.id === quote.id);
+                let isFav = false;
+
+                if (index > -1) {
+                    this.favorites.splice(index, 1);
+                    isFav = false;
+                } else {
+                    this.favorites.push({ ...quote, mood: this.currentMood });
+                    isFav = true;
+                }
+
+                this.saveFavorites();
+                return isFav;
+            },
+
+            isFavorited(quoteId) {
+                return this.favorites.some(item => item.id === quoteId);
+            },
+
+            addCustomQuote(mood, text, author) {
+                const id = "custom_" + Date.now();
+                const newQuote = {
+                    id,
+                    text: text.trim(),
+                    author: author.trim() || "Self-Affirmation"
+                };
+
+                if (!AFFIRMATIONS_DATA[mood]) AFFIRMATIONS_DATA[mood] = [];
+                AFFIRMATIONS_DATA[mood].push(newQuote);
+
+                return newQuote;
+            }
+        };
+
+
+        /* ==========================================================================
+           3. DISPLAY / UI CONTROLLERS SECTION
+           ========================================================================== */
+        const UIController = {
+            // Elements
+            elements: {
+                bgLayer: document.getElementById("bgLayer"),
+                timeGreeting: document.getElementById("timeGreeting"),
+                timeIcon: document.getElementById("timeIcon"),
+                moodGrid: document.getElementById("moodGrid"),
+                quoteCard: document.getElementById("quoteCard"),
+                quoteText: document.getElementById("quoteText"),
+                quoteAuthor: document.getElementById("quoteAuthor"),
+                cycleTracker: document.getElementById("cycleTracker"),
+                nextQuoteBtn: document.getElementById("nextQuoteBtn"),
+                favToggleBtn: document.getElementById("favToggleBtn"),
+                favHeartIcon: document.getElementById("favHeartIcon"),
+                favBadge: document.getElementById("favBadge"),
+                favoritesNavBtn: document.getElementById("favoritesNavBtn"),
+                customQuoteNavBtn: document.getElementById("customQuoteNavBtn"),
+                shareBtn: document.getElementById("shareBtn"),
+                favoritesModal: document.getElementById("favoritesModal"),
+                customModal: document.getElementById("customModal"),
+                shareModal: document.getElementById("shareModal"),
+                favoritesList: document.getElementById("favoritesList"),
+                customQuoteForm: document.getElementById("customQuoteForm"),
+                shareCanvas: document.getElementById("shareCanvas"),
+                downloadCanvasBtn: document.getElementById("downloadCanvasBtn"),
+                toast: document.getElementById("toast"),
+                toastMessage: document.getElementById("toastMessage")
+            },
+
+            init() {
+                AppState.init();
+                this.updateTimeOfDayGreeting();
+                this.bindEvents();
+                this.loadMood(AppState.currentMood);
+                this.updateFavBadge();
+            },
+
+            // 1. Time-of-Day Check-in Prompt
+            updateTimeOfDayGreeting() {
+                const hour = new Date().getHours();
+                let greeting = "Good Morning";
+                let iconClass = "fa-sun";
+
+                if (hour >= 12 && hour < 17) {
+                    greeting = "Good Afternoon";
+                    iconClass = "fa-cloud-sun";
+                } else if (hour >= 17 && hour < 21) {
+                    greeting = "Good Evening";
+                    iconClass = "fa-moon";
+                } else if (hour >= 21 || hour < 5) {
+                    greeting = "Restful Night";
+                    iconClass = "fa-stars";
+                }
+
+                this.elements.timeGreeting.textContent = greeting;
+                this.elements.timeIcon.className = `fa-solid ${iconClass}`;
+            },
+
+            // Load and Display Quote based on Mood
+            loadMood(mood) {
+                AppState.currentMood = mood;
+                
+                // Update active mood button UI
+                const buttons = this.elements.moodGrid.querySelectorAll(".mood-btn");
+                buttons.forEach(btn => {
+                    btn.classList.toggle("active", btn.dataset.mood === mood);
+                });
+
+                // Update Background Image
+                if (MOOD_BACKGROUNDS[mood]) {
+                    this.elements.bgLayer.style.backgroundImage = `url('${MOOD_BACKGROUNDS[mood]}')`;
+                }
+
+                // Render next quote
+                this.renderNextQuote();
+            },
+
+            renderNextQuote() {
+                const card = this.elements.quoteCard;
+                
+                // Smooth fade transition
+                card.classList.add("fade-out");
+
+                setTimeout(() => {
+                    const result = AppState.getNextQuoteForMood(AppState.currentMood);
+                    if (!result) return;
+
+                    const { quote, currentIndex, totalCount } = result;
+
+                    this.elements.quoteText.textContent = `“${quote.text}”`;
+                    this.elements.quoteAuthor.textContent = `— ${quote.author}`;
+                    this.elements.cycleTracker.textContent = `Cycle Progress: ${currentIndex} / ${totalCount} viewed`;
+
+                    // Update Favorite heart state
+                    this.updateFavoriteButtonState();
+
+                    card.classList.remove("fade-out");
+                    card.classList.add("fade-in");
+
+                    setTimeout(() => card.classList.remove("fade-in"), 400);
+                }, 300);
+            },
+
+            updateFavoriteButtonState() {
+                const isFav = AppState.isFavorited(AppState.currentQuote?.id);
+                const btn = this.elements.favToggleBtn;
+                const icon = this.elements.favHeartIcon;
+
+                if (isFav) {
+                    btn.classList.add("favorited");
+                    icon.className = "fa-solid fa-heart";
+                } else {
+                    btn.classList.remove("favorited");
+                    icon.className = "fa-regular fa-heart";
+                }
+            },
+
+            updateFavBadge() {
+                const count = AppState.favorites.length;
+                const badge = this.elements.favBadge;
+                if (count > 0) {
+                    badge.textContent = count;
+                    badge.style.display = "flex";
+                } else {
+                    badge.style.display = "none";
+                }
+            },
+
+            // Render Favorites Drawer
+            renderFavorites() {
+                const container = this.elements.favoritesList;
+                container.innerHTML = "";
+
+                if (AppState.favorites.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fa-regular fa-heart"></i>
+                            <p>No favorited affirmations yet.</p>
+                            <span style="font-size:0.8rem; opacity:0.8;">Click the heart icon on any quote to keep it close.</span>
+                        </div>
+                    `;
+                    return;
+                }
+
+                AppState.favorites.forEach(fav => {
+                    const item = document.createElement("div");
+                    item.className = "favorite-item";
+                    item.innerHTML = `
+                        <div class="fav-content">
+                            <p>“${fav.text}”</p>
+                            <span>${fav.mood} • ${fav.author}</span>
+                        </div>
+                        <button class="remove-fav-btn" data-id="${fav.id}" title="Remove Favorite">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    `;
+                    container.appendChild(item);
+                });
+
+                // Attach remove click handlers
+                container.querySelectorAll(".remove-fav-btn").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        const id = e.currentTarget.dataset.id;
+                        AppState.favorites = AppState.favorites.filter(item => item.id !== id);
+                        AppState.saveFavorites();
+                        this.renderFavorites();
+                        this.updateFavBadge();
+                        this.updateFavoriteButtonState();
+                        this.showToast("Removed from favorites");
+                    });
+                });
+            },
+
+            // Generate HTML5 Canvas Shareable Image Card
+            generateShareImage() {
+                const canvas = this.elements.shareCanvas;
+                const ctx = canvas.getContext("2d");
+                const quote = AppState.currentQuote;
+
+                if (!quote) return;
+
+                // Canvas dimensions
+                const width = 600;
+                const height = 600;
+                canvas.width = width;
+                canvas.height = height;
+
+                // Gradient background based on mood theme
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, "#f3f7f4");
+                gradient.addColorStop(1, "#e2ece9");
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                // Decorative Inner Border
+                ctx.strokeStyle = "#84a98c";
+                ctx.lineWidth = 4;
+                ctx.strokeRect(30, 30, width - 60, height - 60);
+
+                // Soft background watermark text
+                ctx.font = "italic 700 80px Sacramento";
+                ctx.fillStyle = "rgba(132, 169, 140, 0.08)";
+                ctx.textAlign = "center";
+                ctx.fillText("Serene Affirmations", width / 2, 140);
+
+                // Quote Text
+                ctx.font = "400 24px 'Cinzel', serif";
+                ctx.fillStyle = "#2d3748";
+                ctx.textAlign = "center";
+
+                // Word wrap logic for Canvas
+                const words = quote.text.split(" ");
+                let line = "";
+                const lines = [];
+                const maxWidth = 460;
+
+                for (let n = 0; n < words.length; n++) {
+                    const testLine = line + words[n] + " ";
+                    const metrics = ctx.measureText(testLine);
+                    if (metrics.width > maxWidth && n > 0) {
+                        lines.push(line);
+                        line = words[n] + " ";
+                    } else {
+                        line = testLine;
+                    }
+                }
+                lines.push(line);
+
+                // Render Wrapped Text Centered
+                let startY = (height / 2) - ((lines.length * 36) / 2);
+                lines.forEach((l) => {
+                    ctx.fillText(l.trim(), width / 2, startY);
+                    startY += 38;
+                });
+
+                // Render Author
+                ctx.font = "italic 18px 'Plus Jakarta Sans', sans-serif";
+                ctx.fillStyle = "#52796f";
+                ctx.fillText(`— ${quote.author}`, width / 2, startY + 25);
+
+                // Footer
+                ctx.font = "14px 'Plus Jakarta Sans', sans-serif";
+                ctx.fillStyle = "#94a3b8";
+                ctx.fillText("Serene Daily Affirmations", width / 2, height - 55);
+
+                // Open Share Modal
+                this.openModal(this.elements.shareModal);
+            },
+
+            // Modal Controls
+            openModal(modal) {
+                modal.classList.add("active");
+            },
+
+            closeModal(modal) {
+                modal.classList.remove("active");
+            },
+
+            // Toast Notifications
+            showToast(msg) {
+                this.elements.toastMessage.textContent = msg;
+                this.elements.toast.classList.add("show");
+                setTimeout(() => {
+                    this.elements.toast.classList.remove("show");
+                }, 2800);
+            },
+
+            // Event Listeners Registration
+            bindEvents() {
+                // Mood selection click
+                this.elements.moodGrid.addEventListener("click", (e) => {
+                    const btn = e.target.closest(".mood-btn");
+                    if (btn) {
+                        const mood = btn.dataset.mood;
+                        this.loadMood(mood);
+                    }
+                });
+
+                // Next quote click
+                this.elements.nextQuoteBtn.addEventListener("click", () => {
+                    this.renderNextQuote();
+                });
+
+                // Favorite toggle click
+                this.elements.favToggleBtn.addEventListener("click", () => {
+                    if (!AppState.currentQuote) return;
+                    const isFav = AppState.toggleFavorite(AppState.currentQuote);
+                    this.updateFavoriteButtonState();
+                    this.updateFavBadge();
+                    this.showToast(isFav ? "Saved to favorites!" : "Removed from favorites");
+                });
+
+                // Navigation Modal Triggers
+                this.elements.favoritesNavBtn.addEventListener("click", () => {
+                    this.renderFavorites();
+                    this.openModal(this.elements.favoritesModal);
+                });
+
+                this.elements.customQuoteNavBtn.addEventListener("click", () => {
+                    this.openModal(this.elements.customModal);
+                });
+
+                this.elements.shareBtn.addEventListener("click", () => {
+                    this.generateShareImage();
+                });
+
+                // Modal Close Buttons
+                document.querySelectorAll(".closeModalBtn").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        const modalId = e.currentTarget.dataset.modal;
+                        this.closeModal(document.getElementById(modalId));
+                    });
+                });
+
+                // Close modal on overlay background click
+                document.querySelectorAll(".modal-overlay").forEach(overlay => {
+                    overlay.addEventListener("click", (e) => {
+                        if (e.target === overlay) {
+                            this.closeModal(overlay);
+                        }
+                    });
+                });
+
+                // Custom Quote Form Handling
+                this.elements.customQuoteForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const text = document.getElementById("customText").value;
+                    const mood = document.getElementById("customMood").value;
+                    const author = document.getElementById("customAuthor").value;
+
+                    if (text) {
+                        AppState.addCustomQuote(mood, text, author);
+                        this.closeModal(this.elements.customModal);
+                        this.elements.customQuoteForm.reset();
+                        this.showToast("Custom affirmation added!");
+
+                        // If created for current active mood, load it
+                        if (mood === AppState.currentMood) {
+                            this.renderNextQuote();
+                        }
+                    }
+                });
+
+                // Download Shareable Image
+                this.elements.downloadCanvasBtn.addEventListener("click", () => {
+                    const imageURI = this.elements.shareCanvas.toDataURL("image/png");
+                    const link = document.createElement("a");
+                    link.download = `affirmation-${AppState.currentMood}.png`;
+                    link.href = imageURI;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    this.showToast("Image card downloaded!");
+                });
+            }
+        };
+
+        // Initialize application after DOM load
+        window.addEventListener("DOMContentLoaded", () => {
+            UIController.init();
+        });
+    </script>
+</body>
+</html>
