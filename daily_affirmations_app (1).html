@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene - Daily Mood Affirmations</title>
+    <!-- Google Fonts for Calming Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Dynamic Background Imagery Layer -->
+    <div id="bgLayer" class="bg-layer"></div>
+    <div class="bg-overlay-mask"></div>
+
+    <!-- Top Action Navigation Buttons -->
+    <div class="top-nav">
+        <button id="customQuoteNavBtn" class="icon-btn" title="Create Custom Affirmation">
+            <i class="fa-solid fa-pen-sparkles"></i>
+        </button>
+        <button id="favoritesNavBtn" class="icon-btn" title="View Saved Affirmations">
+            <i class="fa-solid fa-heart"></i>
+            <span id="favBadge" class="badge-count" style="display:none;">0</span>
+        </button>
+    </div>
+
+    <!-- Main App Container (Optimized for Mobile/Phone Width) -->
+    <main class="app-container">
+        
+        <!-- Time-of-Day Check-in Header -->
+        <header>
+            <div class="time-badge">
+                <i id="timeIcon" class="fa-solid fa-sun"></i>
+                <span id="timeGreeting">Good Morning</span>
+            </div>
+            <h1 class="greeting-title">How is your heart feeling right now?</h1>
+            <p class="subtitle">Select your mood to receive a tailored affirmation.</p>
+        </header>
+
+        <!-- Mood Selector Buttons -->
+        <section class="mood-section">
+            <div class="mood-buttons-grid" id="moodGrid">
+                <button class="mood-btn active" data-mood="anxious">
+                    <i class="fa-solid fa-wind"></i> Anxious
+                </button>
+                <button class="mood-btn" data-mood="confident">
+                    <i class="fa-solid fa-crown"></i> Confident
+                </button>
+                <button class="mood-btn" data-mood="sad">
+                    <i class="fa-solid fa-cloud-rain"></i> Sad
+                </button>
+                <button class="mood-btn" data-mood="happy">
+                    <i class="fa-solid fa-sun"></i> Happy
+                </button>
+                <button class="mood-btn" data-mood="self-love">
+                    <i class="fa-solid fa-spa"></i> Self-Love
+                </button>
+            </div>
+        </section>
+
+        <!-- Affirmation Display Card -->
+        <section class="quote-card" id="quoteCard">
+            <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="quote-text" id="quoteText">Loading your affirmation...</p>
+            <p class="quote-author" id="quoteAuthor">— Gentle Reminder</p>
+            <div class="cycle-indicator" id="cycleTracker">Cycle progress: 1 / 5</div>
+        </section>
+
+        <!-- Card Actions / Controls -->
+        <div class="card-actions">
+            <button id="nextQuoteBtn" class="action-btn primary">
+                <i class="fa-solid fa-arrows-rotate"></i> Another Affirmation
+            </button>
+            <button id="favToggleBtn" class="action-btn fav-btn">
+                <i class="fa-regular fa-heart" id="favHeartIcon"></i> Favorite
+            </button>
+            <button id="shareBtn" class="action-btn">
+                <i class="fa-solid fa-share-nodes"></i> Share Card
+            </button>
+        </div>
+
+        <footer>
+            <p>Peace & Mindfulness • Crafted with intention</p>
+        </footer>
+    </main>
+
+    <!-- Modal 1: Favorites Drawer -->
+    <div id="favoritesModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-heart" style="color: var(--accent-rose);"></i> Favorite Affirmations</h2>
+                <button class="close-btn closeModalBtn" data-modal="favoritesModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="favoritesList" class="favorites-list">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Custom Quote Creator -->
+    <div id="customModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-pen-line" style="color: var(--accent-sage);"></i> Write Your Affirmation</h2>
+                <button class="close-btn closeModalBtn" data-modal="customModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="customQuoteForm">
+                <div class="form-group">
+                    <label for="customText">Affirmation Quote</label>
+                    <textarea id="customText" class="form-control" placeholder="I am worthy of peace and inner calm..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="customMood">Assign to Mood</label>
+                    <select id="customMood" class="form-control" required>
+                        <option value="anxious">Anxious</option>
+                        <option value="confident">Confident</option>
+                        <option value="sad">Sad</option>
+                        <option value="happy">Happy</option>
+                        <option value="self-love">Self-Love</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="customAuthor">Author (Optional)</label>
+                    <input type="text" id="customAuthor" class="form-control" placeholder="Self-Affirmation">
+                </div>
+                <button type="submit" class="submit-btn"><i class="fa-solid fa-plus"></i> Save & Affirm Yourself</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: Shareable Canvas Image Generator Preview -->
+    <div id="shareModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-image" style="color: var(--accent-sage-dark);"></i> Shareable Card</h2>
+                <button class="close-btn closeModalBtn" data-modal="shareModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="canvas-container">
+                <canvas id="shareCanvas" width="600" height="600"></canvas>
+                <button id="downloadCanvasBtn" class="action-btn primary" style="width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-download"></i> Download Image Card
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Non-intrusive Toast Notification -->
+    <div id="toast" class="toast-notification">
+        <i class="fa-solid fa-circle-check" style="color: var(--accent-sage);"></i>
+        <span id="toastMessage">Action completed</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
